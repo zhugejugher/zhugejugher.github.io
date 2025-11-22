@@ -2,7 +2,7 @@ name: Deploy Jupyter Book to GitHub Pages
 
 on:
   push:
-    branches: [ main ] 
+    branches: [ main ]   # 如果你不是 main，就改成你的默认分支名
   workflow_dispatch:
 
 permissions:
@@ -24,23 +24,31 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"  
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-        
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    
-          pip install jupyter-book
+          # 确保安装 jupyter-book
+          pip install "jupyter-book==0.15.1"
 
       - name: Build Jupyter Book
         run: |
+          # 在仓库根目录构建整本书
           jupyter-book build .
+
+          echo "==== 文件结构检查 ===="
+          ls
+          echo "==== _build 目录 ===="
+          ls _build || echo "_build 不存在"
+          echo "==== _build/html 目录 ===="
+          ls _build/html || echo "_build/html 不存在"
 
       - name: Upload built site as artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # 这里一定要和上面的构建输出路径对应
           path: _build/html
 
   deploy:

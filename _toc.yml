@@ -2,4 +2,7 @@ format: jb-book
 root: index
 chapters:
   - file: project1_oregon
+    title: "Project 1: Oregon Hospital Analysis"
+
   - file: project_2
+    title: "Project 2: NYPD Complaint Per-capita Analysis"

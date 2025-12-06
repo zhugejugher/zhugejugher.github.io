@@ -6,3 +6,6 @@ chapters:
 
   - file: project_2
     title: "Project 2: NYPD Complaint Per-capita Analysis"
+
+  - file: project_3
+    title: "Project 3: Are bedbug risks equitably distributed in NYC?"
